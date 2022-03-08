@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import * as ImageAnnotator from 'image-annotator';
 
 function App() {
+  console.log({ImageAnnotator});
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) {
+      alert('No file uploaded');
+      return;
+    }
+    const file = event.target.files[0];
+    ImageAnnotator.readFile(file);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <input type={'file'} onChange={handleFileChange} className={'file-input'}/>
+      </div>
     </div>
   );
 }
